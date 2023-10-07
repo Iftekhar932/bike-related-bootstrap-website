@@ -9,6 +9,7 @@ const bcrypt = require("bcryptjs");
 // mongoose schema
 const User = require("./model/user");
 
+// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,11 +24,11 @@ app.post("/register", async (req, res) => {
 
     // checking if user already exists
     const oldUser = User.find({ email });
-
     if (oldUser.email === email) {
       return res.send(409).json({ msg: "User already exists" }); // conflict with existing resource 409
     }
 
+    // hashing the password for security
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // saving user  info with mongoose schema
