@@ -4,6 +4,8 @@ const express = require("express");
 const JWT = require("jsonwebtoken");
 const app = express();
 
+const bcrypt = require("bcryptjs");
+
 // mongoose schema
 const User = require("./model/user");
 
@@ -26,12 +28,14 @@ app.post("/register", async (req, res) => {
       return res.send(409).json({ msg: "User already exists" }); // conflict with existing resource 409
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // saving user  info with mongoose schema
     const user = await User.create({
       firstName: firstName,
       lastName: lastName,
       email: email.toLowerCase(),
-      password: password,
+      password: hashedPassword,
     });
 
     // creating token
