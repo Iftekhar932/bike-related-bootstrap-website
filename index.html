@@ -81,8 +81,8 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <form>
-                  <div class="mb-3">
+                <div>
+                  <div id="userInfoForm" class="mb-3">
                     <label for="exampleInputFirstName1" class="form-label"
                       >Enter Your First Name</label
                     >
@@ -92,6 +92,7 @@
                       id="exampleInputFirstName1"
                       aria-describedby="firstNameHelp"
                       placeholder="First Name"
+                      name="firstName"
                     />
                     <label for="exampleInputLastName1" class="form-label"
                       >Enter Your Last Name</label
@@ -102,6 +103,7 @@
                       id="exampleInputLastName1"
                       aria-describedby="lastNameHelp"
                       placeholder="Last Name"
+                      name="lastName"
                     />
                     <label for="exampleInputEmail1" class="form-label"
                       >Enter Your Password</label
@@ -112,6 +114,7 @@
                       id="exampleInputPassword1"
                       aria-describedby="passwordHelp"
                       placeholder="Password"
+                      name="password"
                     />
                     <label for="exampleInputEmail1" class="form-label"
                       >Enter Your Email address</label
@@ -122,13 +125,16 @@
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       placeholder="Email Address"
+                      name="emailAddress"
                     />
                     <div id="emailHelp" class="form-text">
                       We'll contact you soon. Check your Email
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Done</button>
-                </form>
+                  <button onclick="sendInfo()" class="btn btn-primary">
+                    Done
+                  </button>
+                </div>
               </div>
               <div class="modal-footer">
                 <button

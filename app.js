@@ -3,17 +3,25 @@ require("./config/database").connect();
 const express = require("express");
 const JWT = require("jsonwebtoken");
 const app = express();
-
+const cors = require("cors");
 const bcrypt = require("bcryptjs");
 
 // mongoose schema
 const User = require("./model/user");
 
-// middlewares
+// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+const auth = require("./middleware/auth");
+
+// routes
+app.post("/welcome", auth, (req, res) => {
+  res.status(200).send("Welcome 🙌 ");
+});
 
 app.post("/register", async (req, res) => {
+  console.log(req.body);
   try {
     const { firstName, lastName, password, email } = req.body;
 
@@ -24,7 +32,7 @@ app.post("/register", async (req, res) => {
 
     // checking if user already exists
     const oldUser = User.find({ email });
-    if (oldUser.email === email) {
+    if (oldUser.email === email.toLowerCase()) {
       return res.send(409).json({ msg: "User already exists" }); // conflict with existing resource 409
     }
 
@@ -52,6 +60,7 @@ app.post("/register", async (req, res) => {
     console.log(error, "line 13");
   }
 });
+
 app.get("/login", (req, res) => {});
 
 app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests

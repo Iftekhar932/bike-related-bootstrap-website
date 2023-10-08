@@ -11,7 +11,7 @@ const authenticateUser = (req, res, next) => {
       .send({ msg: "Token not found, token required for authentication" }); //403 forbidden
   }
   try {
-    const decoded = JWT.verify(token, process.env.TOKEN_KEY); // testing needed 🥵🥵🥵🥵
+    const decoded = JWT.verify(token, process.env.TOKEN_KEY);
     console.log("🚀 ~ file: auth.js:10 ~ authenticateUser ~ decoded:", decoded);
     req.user = decoded;
   } catch (error) {
