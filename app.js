@@ -13,6 +13,7 @@ const User = require("./model/user");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
 const auth = require("./middleware/auth");
 
 // routes
@@ -21,7 +22,6 @@ app.post("/welcome", auth, (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  console.log(req.body);
   try {
     const { firstName, lastName, password, email } = req.body;
 
@@ -31,9 +31,9 @@ app.post("/register", async (req, res) => {
     }
 
     // checking if user already exists
-    const oldUser = User.find({ email });
-    if (oldUser.email === email.toLowerCase()) {
-      return res.send(409).json({ msg: "User already exists" }); // conflict with existing resource 409
+    const oldUser = await User.findOne({ email: email });
+    if (oldUser) {
+      return res.status(409).send({ msg: "User already exists" }); // conflict with existing resource 409
     }
 
     // hashing the password for security
@@ -61,9 +61,32 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.get("/login", (req, res) => {});
+app.post("/login", async (req, res) => {
+  try {
+    const { firstName, lastName, password, email } = req.body;
 
-app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
+    // checking if all required information are provided
+    if (!(password && email)) {
+      return res.status(400).send({ msg: "All information is required" }); // bad request 400
+    }
+
+    // checking if user already exists
+    const oldUser = User.find({ email });
+    console.log("✨ 🌟  app.post  oldUser:", oldUser);
+    /* 
+    let accessToken;
+    if (oldUser._conditions.email !== email){
+      return res.status(403).send({ msg: "Invalid Credentials "})
+    } */
+    accessToken = JWT.sign({ email: email }, process.env.TOKEN_KEY, {
+      expiresIn: "2h",
+    });
+
+    res.status(200).send("logged in");
+  } catch (error) {
+    console.log(error, "line 13");
+  }
+});
 
 // Logic goes here
 
