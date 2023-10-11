@@ -4,14 +4,16 @@ const express = require("express");
 const JWT = require("jsonwebtoken");
 const app = express();
 const cors = require("cors");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 
 // mongoose schema
-const User = require("./model/user");
+const User = require("./model/User");
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
 const auth = require("./middleware/auth");
@@ -31,7 +33,9 @@ app.post("/register", async (req, res) => {
     }
 
     // checking if user already exists
-    const oldUser = await User.findOne({ email: email });
+    const oldUser = await User.findOne({ email: email }).exec();
+
+    // check for duplicate usernames in the db
     if (oldUser) {
       return res.status(409).send({ msg: "User already exists" }); // conflict with existing resource 409
     }
@@ -47,17 +51,10 @@ app.post("/register", async (req, res) => {
       password: hashedPassword,
     });
 
-    // creating token
-    const token = JWT.sign({ email: email }, process.env.TOKEN_KEY, {
-      expiresIn: "2h",
-    });
-
-    // saving user token
-    user.token = token;
-
-    res.status(201).send(user);
+    res.status(201).json(`Created account: ${user}`);
   } catch (error) {
     console.log(error, "line 13");
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -71,23 +68,21 @@ app.post("/login", async (req, res) => {
     }
 
     // checking if user already exists
-    const oldUser = User.find({ email });
-    console.log("✨ 🌟  app.post  oldUser:", oldUser);
-    /* 
-    let accessToken;
-    if (oldUser._conditions.email !== email){
-      return res.status(403).send({ msg: "Invalid Credentials "})
-    } */
-    accessToken = JWT.sign({ email: email }, process.env.TOKEN_KEY, {
-      expiresIn: "2h",
-    });
+    const oldUser = await User.findOne({ email }).exec();
+    if (!oldUser) return res.status(403).send("no match");
 
     res.status(200).send("logged in");
   } catch (error) {
-    console.log(error, "line 13");
+    console.log(error, "line 83");
   }
 });
 
-// Logic goes here
+app.get("/deleteAll", function (req, res) {
+  try {
+    return User.deleteMany({});
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = app;

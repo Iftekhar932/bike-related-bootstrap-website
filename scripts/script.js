@@ -20,8 +20,4 @@ function sendInfo() {
     .then((res) => res.json())
     .then((d) => console.log(d))
     .catch((err) => console.log(err));
-  /* console.log("✨ 🌟  firstNameBox:", firstNameBox.value);
-  console.log("✨ 🌟  lastNameBox:", lastNameBox.value);
-  console.log("✨ 🌟  passwordBox:", passwordBox.value);
-  console.log("✨ 🌟  emailBox:", emailBox.value); */
 }
