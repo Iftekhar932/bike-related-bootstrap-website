@@ -1,28 +1,30 @@
 const JWT = require("jsonwebtoken");
 
-const refreshTokenAuth = (req, res, next) => {
+// at "/login" route
+const refreshTokenAuth = (req, res) => {
   const cookies = req.cookies;
-  console.log("✨ 🌟  refreshTokenAuth  cookies:", cookies);
-  if (!cookies?.tokenholder) return res.status(401); // unauthorized
-  const refreshToken = cookies.tokenholder;
+  if (!cookies?.tokenHolder) return res.status(401); // unauthorized
+  const refreshToken = cookies.tokenHolder;
 
   try {
-    const decoded = JWT.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_KEY,
-      (err, decoded) => {
-        const accessToken = JWT.sign(
-          { email: decoded.email },
-          process.env.ACCESS_TOKEN_KEY,
-          { expiresIn: "30s" }
-        );
+    JWT.verify(refreshToken, process.env.REFRESH_TOKEN_KEY, (err, decoded) => {
+      if (err) {
+        console.log(err, "line 13 ");
+        return res.status(401);
       }
-    );
-    res.status(200).send({ accessToken });
+      const accessToken = JWT.sign(
+        { email: decoded.email },
+        process.env.ACCESS_TOKEN_KEY,
+        { expiresIn: "2h" }
+      );
+      res.json({ accessToken });
+    });
   } catch (error) {
     console.log("✨ 🌟  refreshTokenAuth  error:", error);
     return res.status(401); // unauthorized
   }
-  next();
 };
 module.exports = refreshTokenAuth;
+
+
+what to do after i get that access token

@@ -7,6 +7,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const verifyJWT = require("./middleware/verifyJWT");
+const refreshTokenAuth = require("./middleware/refreshTokenAuth");
 
 // mongoose schema
 const User = require("./model/User");
@@ -19,11 +20,6 @@ app.use(cors());
 app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
 const auth = require("./middleware/auth");
 const authenticateUser = require("./middleware/auth");
-
-// routes
-app.post("/welcome", auth, (req, res) => {
-  res.status(200).send("Welcome 🙌 ");
-});
 
 app.post("/register", async (req, res) => {
   try {
@@ -66,13 +62,20 @@ app.get("/logout", async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get("/allEmployees", verifyJWT, async (req, res) => {
+app.use(refreshTokenAuth);
+app.use(verifyJWT);
+app.get("/allEmployees", async (req, res) => {
   try {
     const employees = await User.find({});
     res.json(employees);
   } catch (error) {
-    console.log("✨ 🌟  app.get  error line 74: 😀", error);
+    console.log("✨ 🌟  app.get  error line: 😀", error);
   }
+});
+
+// routes
+app.post("/welcome", verifyJWT, (req, res) => {
+  res.status(200).send("Welcome 🙌 ");
 });
 
 app.get("/deleteAll", async function (req, res) {

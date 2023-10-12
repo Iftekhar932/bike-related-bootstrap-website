@@ -17,7 +17,7 @@ const authenticateUser = async (req, res) => {
     const accessToken = JWT.sign(
       { email: email },
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: "15s" }
+      { expiresIn: "30s" }
     );
 
     const refreshToken = JWT.sign(
@@ -27,10 +27,10 @@ const authenticateUser = async (req, res) => {
     );
 
     res.cookie("tokenHolder", refreshToken, {
-      httpOnly: true,
+      /*  httpOnly: true,
       secure: true,
       sameSite: "none",
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000, */
     });
 
     res.json({ accessToken });
