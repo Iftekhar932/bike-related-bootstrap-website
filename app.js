@@ -67,8 +67,12 @@ app.get("/logout", async (req, res) => {
 });
 
 app.get("/allEmployees", verifyJWT, async (req, res) => {
-  const employees = await User.find({});
-  res.json(employees);
+  try {
+    const employees = await User.find({});
+    res.json(employees);
+  } catch (error) {
+    console.log("✨ 🌟  app.get  error line 74: 😀", error);
+  }
 });
 
 app.get("/deleteAll", async function (req, res) {
