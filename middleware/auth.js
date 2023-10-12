@@ -12,18 +12,17 @@ const authenticateUser = async (req, res) => {
     }
 
     const foundUser = await User.findOne({ email: email });
-    console.log(foundUser.password, " 💚💚💚");
     const match = bcrypt.compare(password, foundUser.password);
 
     const accessToken = JWT.sign(
       { email: email },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "2h" }
+      process.env.ACCESS_TOKEN_KEY,
+      { expiresIn: "15s" }
     );
 
     const refreshToken = JWT.sign(
       { email: email },
-      process.env.REFRESH_TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_KEY,
       { expiresIn: "1d" }
     );
 

@@ -6,6 +6,7 @@ const app = express();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
+const verifyJWT = require("./middleware/verifyJWT");
 
 // mongoose schema
 const User = require("./model/User");
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
 const auth = require("./middleware/auth");
+const authenticateUser = require("./middleware/auth");
 
 // routes
 app.post("/welcome", auth, (req, res) => {
@@ -51,35 +53,28 @@ app.post("/register", async (req, res) => {
       password: hashedPassword,
     });
 
-    res.status(201).json(`Created account: ${user}`);
+    res.status(201).json(`Created account`);
   } catch (error) {
     console.log(error, "line 13");
     res.status(500).json({ error: error.message });
   }
 });
+app.post("/login", authenticateUser);
 
-app.post("/login", async (req, res) => {
-  try {
-    const { firstName, lastName, password, email } = req.body;
-
-    // checking if all required information are provided
-    if (!(password && email)) {
-      return res.status(400).send({ msg: "All information is required" }); // bad request 400
-    }
-
-    // checking if user already exists
-    const oldUser = await User.findOne({ email }).exec();
-    if (!oldUser) return res.status(403).send("no match");
-
-    res.status(200).send("logged in");
-  } catch (error) {
-    console.log(error, "line 83");
-  }
+app.get("/logout", async (req, res) => {
+  res.clearCookie("cookieHolder");
+  res.sendStatus(200);
 });
 
-app.get("/deleteAll", function (req, res) {
+app.get("/allEmployees", verifyJWT, async (req, res) => {
+  const employees = await User.find({});
+  res.json(employees);
+});
+
+app.get("/deleteAll", async function (req, res) {
   try {
-    return User.deleteMany({});
+    await User.deleteMany({});
+    return res.json("deleted");
   } catch (err) {
     console.log(err);
   }
