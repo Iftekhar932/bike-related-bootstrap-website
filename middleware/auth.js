@@ -11,13 +11,13 @@ const authenticateUser = async (req, res) => {
         .json({ message: "Email and password is required" });
     }
 
-    const foundUser = await User.findOne({ email: email });
+    const foundUser = await User.findOne({ email: email }).exec();
     const match = bcrypt.compare(password, foundUser.password);
 
     const accessToken = JWT.sign(
       { email: email },
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: "30s" }
+      { expiresIn: "2m" }
     );
 
     const refreshToken = JWT.sign(
@@ -26,6 +26,9 @@ const authenticateUser = async (req, res) => {
       { expiresIn: "1d" }
     );
 
+    foundUser.refreshToken = refreshToken;
+    await foundUser.save();
+
     res.cookie("tokenHolder", refreshToken, {
       /*  httpOnly: true,
       secure: true,
@@ -33,7 +36,7 @@ const authenticateUser = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, */
     });
 
-    res.json({ accessToken });
+    res.json({ accessToken, from: "auth.js" });
   } catch (error) {
     console.log("✨ 🌟  authenticateUser  error:", error);
     return res.status(401).send({ msg: "Invalid token" }); // 401 unauthorized

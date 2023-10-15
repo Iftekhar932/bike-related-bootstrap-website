@@ -62,19 +62,22 @@ app.get("/logout", async (req, res) => {
   res.sendStatus(200);
 });
 
-app.use(refreshTokenAuth);
+app.post("/refresh", refreshTokenAuth);
 app.use(verifyJWT);
+
 app.get("/allEmployees", async (req, res) => {
+  console.log("ashlam");
   try {
     const employees = await User.find({});
-    res.json(employees);
+    console.log("✨ 🌟  app.get  employees:", employees);
+    res.status(200).send(employees);
   } catch (error) {
     console.log("✨ 🌟  app.get  error line: 😀", error);
   }
 });
 
 // routes
-app.post("/welcome", verifyJWT, (req, res) => {
+app.get("/welcome", (req, res) => {
   res.status(200).send("Welcome 🙌 ");
 });
 
