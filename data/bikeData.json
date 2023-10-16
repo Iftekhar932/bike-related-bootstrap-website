@@ -1,0 +1,224 @@
+{
+    "motorbikes": [
+        {
+            "id": 1,
+            "brand": "Honda",
+            "model": "CBR1000RR",
+            "type": "Sportbike",
+            "engine": "999cc Inline-Four",
+            "price": 14999.99,
+            "color": "Red/Black",
+            "description": "A high-performance sportbike designed for speed and agility.",
+            "image": "https://example.com/images/honda-cbr1000rr.jpg"
+        },
+        {
+            "id": 2,
+            "brand": "Kawasaki",
+            "model": "Ninja ZX-6R",
+            "type": "Sportbike",
+            "engine": "636cc Inline-Four",
+            "price": 10999.00,
+            "color": "Lime Green",
+            "description": "A versatile sportbike with a focus on precision and handling.",
+            "image": "https://example.com/images/kawasaki-ninja-zx6r.jpg"
+        },
+        {
+            "id": 3,
+            "brand": "Ducati",
+            "model": "Panigale V4",
+            "type": "Superbike",
+            "engine": "1103cc V4",
+            "price": 21495.00,
+            "color": "Ducati Red",
+            "description": "A superbike with cutting-edge technology and performance.",
+            "image": "https://example.com/images/ducati-panigale.jpg"
+        },
+        {
+            "id": 4,
+            "brand": "Yamaha",
+            "model": "YZF-R6",
+            "type": "Sportbike",
+            "engine": "599cc Inline-Four",
+            "price": 11599.00,
+            "color": "Team Yamaha Blue",
+            "description": "A sportbike known for its balance of power and agility.",
+            "image": "https://example.com/images/yamaha-yzf-r6.jpg"
+        },
+        {
+            "id": 5,
+            "brand": "Suzuki",
+            "model": "GSX-R750",
+            "type": "Sportbike",
+            "engine": "749cc Inline-Four",
+            "price": 12399.00,
+            "color": "Metallic Triton Blue",
+            "description": "A sportbike that combines power and handling for thrilling rides.",
+            "image": "https://example.com/images/suzuki-gsxr750.jpg"
+        },
+        {
+            "id": 6,
+            "brand": "Harley-Davidson",
+            "model": "Street Glide",
+            "type": "Cruiser",
+            "engine": "1868cc Milwaukee-Eight V-Twin",
+            "price": 21399.00,
+            "color": "Vivid Black",
+            "description": "A classic cruiser designed for comfortable long-distance touring.",
+            "image": "https://example.com/images/harley-davidson-street-glide.jpg"
+        },
+        {
+            "id": 7,
+            "brand": "BMW",
+            "model": "R 1250 GS",
+            "type": "Adventure Bike",
+            "engine": "1254cc Boxer Twin",
+            "price": 19990.00,
+            "color": "Light White",
+            "description": "An adventure bike built for exploring both on and off the road.",
+            "image": "https://example.com/images/bmw-r1250gs.jpg"
+        },
+        {
+            "id": 8,
+            "brand": "KTM",
+            "model": "Duke 390",
+            "type": "Naked Bike",
+            "engine": "373cc Single-Cylinder",
+            "price": 5699.00,
+            "color": "Orange",
+            "description": "A versatile naked bike known for its lightweight and agility.",
+            "image": "https://example.com/images/ktm-duke-390.jpg"
+        },
+        {
+            "id": 9,
+            "brand": "Triumph",
+            "model": "Bonneville T100",
+            "type": "Classic",
+            "engine": "900cc Parallel Twin",
+            "price": 9790.00,
+            "color": "Jet Black",
+            "description": "A classic motorcycle with a timeless design and modern features.",
+            "image": "https://example.com/images/triumph-bonneville.jpg"
+        },
+        {
+            "id": 10,
+            "brand": "Moto Guzzi",
+            "model": "V7 III Stone",
+            "type": "Cruiser",
+            "engine": "744cc V-Twin",
+            "price": 8499.00,
+            "color": "Matte Black",
+            "description": "A stylish cruiser with Italian flair and a unique character.",
+            "image": "https://example.com/images/moto-guzzi-v7-iii.jpg"
+        },
+        {
+            "id": 11,
+            "brand": "Indian",
+            "model": "Chieftain Dark Horse",
+            "type": "Touring",
+            "engine": "1811cc Thunder Stroke V-Twin",
+            "price": 27199.00,
+            "color": "Thunder Black Smoke",
+            "description": "A powerful touring bike with classic styling and modern features.",
+            "image": "https://example.com/images/indian-chieftain.jpg"
+        },
+        {
+            "id": 12,
+            "brand": "Aprilia",
+            "model": "RSV4 RR",
+            "type": "Superbike",
+            "engine": "999.6cc V4",
+            "price": 17999.00,
+            "color": "Superpole",
+            "description": "A superbike designed for racetrack performance and precision handling.",
+            "image": "https://example.com/images/aprilia-rsv4.jpg"
+        },
+        {
+            "id": 13,
+            "brand": "Ducati",
+            "model": "Monster 821",
+            "type": "Naked Bike",
+            "engine": "821cc V-Twin",
+            "price": 11495.00,
+            "color": "Ducati Red",
+            "description": "A versatile naked bike known for its balance of power and style.",
+            "image": "https://example.com/images/ducati-monster.jpg"
+        },
+        {
+            "id": 14,
+            "brand": "Kawasaki",
+            "model": "Versys 1000 SE LT+",
+            "type": "Adventure Bike",
+            "engine": "1043cc Inline-Four",
+            "price": 18499.00,
+            "color": "Metallic Flat Spark Black/Metallic Carbon Gray",
+            "description": "An adventure bike built for long-distance touring and exploration.",
+            "image": "https://example.com/images/kawasaki-versys.jpg"
+        },
+        {
+            "id": 15,
+            "brand": "Suzuki",
+            "model": "SV650",
+            "type": "Naked Bike",
+            "engine": "645cc V-Twin",
+            "price": 7999.00,
+            "color": "Pearl Glacier White",
+            "description": "A naked bike with a great balance of performance and value.",
+            "image": "https://example.com/images/suzuki-sv650.jpg"
+        },
+        {
+            "id": 16,
+            "brand": "Yamaha",
+            "model": "Tracer 900 GT",
+            "type": "Sport Touring",
+            "engine": "847cc Inline-Triple",
+            "price": 12499.00,
+            "color": "Nimbus Gray",
+            "description": "A sport touring bike designed for long-distance comfort and performance.",
+            "image": "https://example.com/images/yamaha-tracer.jpg"
+        },
+        {
+            "id": 17,
+            "brand": "Triumph",
+            "model": "Tiger 900 Rally Pro",
+            "type": "Adventure Bike",
+            "engine": "888cc Triple",
+            "price": 15700.00,
+            "color": "Matt Khaki Green",
+            "description": "An adventure bike built for off-road adventure and exploration.",
+            "image": "https://example.com/images/triumph-tiger.jpg"
+        },
+        {
+            "id": 18,
+            "brand": "Harley-Davidson",
+            "model": "Road King Special",
+            "type": "Touring",
+            "engine": "1868cc Milwaukee-Eight V-Twin",
+            "price": 21999.00,
+            "color": "Vivid Black",
+            "description": "A classic touring bike designed for long-haul comfort and style.",
+            "image": "https://example.com/images/harley-davidson-road-king.jpg"
+        },
+        {
+            "id": 19,
+            "brand": "BMW",
+            "model": "F 850 GS",
+            "type": "Adventure Bike",
+            "engine": "853cc Parallel Twin",
+            "price": 14440.00,
+            "color": "Racing Red",
+            "description": "An adventure bike designed for both on and off-road journeys.",
+            "image": "https://example.com/images/bmw-f850gs.jpg"
+        },
+        {
+            "id": 20,
+            "brand": "Moto Guzzi",
+            "model": "V9 Roamer",
+            "type": "Cruiser",
+            "engine": "853cc V-Twin",
+            "price": 9990.00,
+            "color": "Satin Titanium",
+            "description": "A cruiser with a classic design and a comfortable ride.",
+            "image": "https://example.com/images/moto-guzzi-v9.jpg"
+        }
+    ]
+}
