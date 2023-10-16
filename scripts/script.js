@@ -31,7 +31,13 @@ async function bikeSearcher() {
     .then((data) => {
       console.log(data.motorbikes);
       const searchedFor = data.motorbikes.filter((bike) => {
-        return bike.brand.toLowerCase() == searchBox.value.toLowerCase();
+        return (
+          bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
+          bike.type.toLowerCase() == searchBox.value.toLowerCase() ||
+          bike.model.toLowerCase().includes(searchBox.value.toLowerCase()) ||
+          bike.color.toLowerCase().includes(searchBox.value.toLowerCase()) ||
+          bike.engine.toLowerCase().includes(searchBox.value.toLowerCase())
+        );
       });
       console.log(searchedFor);
     });

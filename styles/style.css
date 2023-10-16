@@ -8,7 +8,7 @@ body {
 
 /* CSS FOR HEADER */
 /* ------------------------ */
-header {
+.custom-bg-color {
   background-color: #264653;
 }
 
