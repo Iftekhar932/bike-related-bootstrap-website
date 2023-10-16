@@ -10,7 +10,7 @@ const verifyJWT = (req, res, next) => {
   JWT.verify(token, process.env.ACCESS_TOKEN_KEY, async (err, decoded) => {
     if (err) {
       console.log(err);
-      res.status(401).json({ msg: "token not valid" });
+      return res.status(401).json({ msg: "token not valid" });
     }
 
     const foundUser = await User.findOne({ email: decoded?.email }).exec();

@@ -66,10 +66,9 @@ app.post("/refresh", refreshTokenAuth);
 app.use(verifyJWT);
 
 app.get("/allEmployees", async (req, res) => {
-  console.log("ashlam");
   try {
     const employees = await User.find({});
-    console.log("✨ 🌟  app.get  employees:", employees);
+    console.log("✨ 🌟  app.get  employees: ", employees);
     res.status(200).send(employees);
   } catch (error) {
     console.log("✨ 🌟  app.get  error line: 😀", error);
