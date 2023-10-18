@@ -8,6 +8,7 @@ const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDi
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
+/* submitting userInfo for account */
 async function sendInfo() {
   await fetch("http://localhost:4001/register", {
     method: "POST",
@@ -23,6 +24,7 @@ async function sendInfo() {
   }).then((res) => res.json());
 }
 
+/* searching for bikes with provided input value */
 async function bikeSearcher() {
   await fetch("../data/bikeData.json")
     .then((res) => res.json())
@@ -36,29 +38,34 @@ async function bikeSearcher() {
           bike.engine.toLowerCase().includes(searchBox.value.toLowerCase())
         );
       });
+      console.log("✨ 🌟  .then  searchedFor:", searchedFor);
       if (searchedFor) return displayIndividualBike(searchedFor);
     });
 }
 
+/* checking whether data fetched twice, either with submitted with click or "Enter" button */
+/* function twiceSubmissionCheck(flag = false, e) {
+  console.log("s");
+  if (flag === false) {
+    (e) => {
+      // e.preventDefault();
+      return bikeSearcher();
+    };
+  }
+} */
+
+/* checking if user pressed "Enter" button for submission */
+let pressed;
 searchBox.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    withOrWithout(false);
-    return bikeSearcher();
+    let pressed = "submit";
   }
 });
 
-function withOrWithout(flag) {
-  if (flag === false) return;
-  return function (e) {
-    e.preventDefault();
-    if (flag) return;
-    console.log("eta");
-    return bikeSearcher();
-  };
-}
+/* using submission checker on form submit  */
+bikeSearchForm.addEventListener("submit" || pressed, () => bikeSearcher());
 
-bikeSearchForm.addEventListener("submit", withOrWithout());
-
+// getting and displaying bike information
 function displayIndividualBike(bikeInfo) {
   let bikeInfoToDisplay = bikeInfo;
 
@@ -66,12 +73,12 @@ function displayIndividualBike(bikeInfo) {
     const { id, brand, model, type, engine, price, color, description, image } =
       singleBikeInfo;
 
+    // displaying information in individual boxes
     const singleBikeBox = `
               <img
                 class="card-img-top"
                 src="${image}"
                 alt="${brand}"
-                height="auto" width="auto"
               />
               <div class="card-body">
                 <h5 class="card-title">Brand: ${brand}</h5>
@@ -82,9 +89,12 @@ function displayIndividualBike(bikeInfo) {
                 </p>
                 <span href="#" class="btn btn-primary">$ ${price}</span>
                 </div>`;
-    //
+
     const boxToAppend = document.createElement("div");
-    boxToAppend.setAttribute("class", "card p-2 shadow-sm col-3");
+    boxToAppend.setAttribute(
+      "class",
+      "card p-2 shadow-sm col-3 col-md-2 col-sm-1"
+    );
     boxToAppend.innerHTML = singleBikeBox;
     bikesContainerBoxID.append(boxToAppend);
   });
