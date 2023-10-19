@@ -43,27 +43,20 @@ async function bikeSearcher() {
     });
 }
 
-/* checking whether data fetched twice, either with submitted with click or "Enter" button */
-/* function twiceSubmissionCheck(flag = false, e) {
-  console.log("s");
-  if (flag === false) {
-    (e) => {
-      // e.preventDefault();
-      return bikeSearcher();
-    };
-  }
-} */
-
-/* checking if user pressed "Enter" button for submission */
+/*  if user pressed "Enter" button for submission */
 let pressed;
 searchBox.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     let pressed = "submit";
+    return pressed;
   }
 });
 
-/* using submission checker on form submit  */
-bikeSearchForm.addEventListener("submit" || pressed, () => bikeSearcher());
+/* function on form submission  */
+bikeSearchForm.addEventListener("submit" || pressed, (e) => {
+  e.preventDefault();
+  bikeSearcher();
+});
 
 // getting and displaying bike information
 function displayIndividualBike(bikeInfo) {
@@ -91,10 +84,8 @@ function displayIndividualBike(bikeInfo) {
                 </div>`;
 
     const boxToAppend = document.createElement("div");
-    boxToAppend.setAttribute(
-      "class",
-      "card p-2 shadow-sm col-3 col-md-2 col-sm-1"
-    );
+    boxToAppend.setAttribute("class", "card p-2 shadow-sm col-sm-4 col-md-3");
+    // boxToAppend.setAttribute("style", "min-width:100%");
     boxToAppend.innerHTML = singleBikeBox;
     bikesContainerBoxID.append(boxToAppend);
   });
