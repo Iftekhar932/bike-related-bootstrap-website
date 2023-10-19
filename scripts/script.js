@@ -84,7 +84,10 @@ function displayIndividualBike(bikeInfo) {
                 </div>`;
 
     const boxToAppend = document.createElement("div");
-    boxToAppend.setAttribute("class", "card p-2 shadow-sm col-sm-4 col-md-3");
+    boxToAppend.setAttribute(
+      "class",
+      "card p-2 shadow-sm col-sm-4 col-md-4 col-lg-3"
+    );
     // boxToAppend.setAttribute("style", "min-width:100%");
     boxToAppend.innerHTML = singleBikeBox;
     bikesContainerBoxID.append(boxToAppend);
