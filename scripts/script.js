@@ -8,6 +8,11 @@ const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDi
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
+/* 
+// mongoose schema
+const Bike = require("../model/Bike.js");
+console.log("✨ 🌟  Bike:", Bike); */
+
 /* submitting userInfo for account */
 async function sendInfo() {
   await fetch("http://localhost:4001/register", {

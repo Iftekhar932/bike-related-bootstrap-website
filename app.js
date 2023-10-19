@@ -11,6 +11,7 @@ const refreshTokenAuth = require("./middleware/refreshTokenAuth");
 
 // mongoose schema
 const User = require("./model/User");
+const Bike = require("./model/Bike");
 
 // middleware
 app.use(express.json());
@@ -76,8 +77,15 @@ app.get("/allEmployees", async (req, res) => {
 });
 
 // routes
-app.get("/welcome", (req, res) => {
-  res.status(200).send("Welcome 🙌 ");
+app.get("/allBikes", async (req, res) => {
+  try {
+    const bikes = await Bike.find({});
+    console.log("✨ 🌟  app.get  bikes:", bikes);
+    res.status(200).send(bikes);
+  } catch (error) {
+    console.log("✨ 🌟  app.get  error:", error);
+    res.sendStatus(401);
+  }
 });
 
 app.get("/deleteAll", async function (req, res) {
