@@ -3,6 +3,10 @@ const User = require("../model/User");
 
 const verifyJWT = (req, res, next) => {
   const authHeader = req.headers.Authorization || req.headers.authorization;
+  console.log(
+    "🚀 ~ file: verifyJWT.js:6 ~ verifyJWT ~ authHeader:",
+    authHeader
+  );
   if (!authHeader) return res.sendStatus(401);
 
   const token = authHeader.split(" ")[1];

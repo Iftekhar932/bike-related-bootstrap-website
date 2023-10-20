@@ -112,7 +112,15 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
-            Purchase
+            Signup
+          </button>
+          <button
+            type="button"
+            class="btn custom-color-btn text-white px-5"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal2"
+          >
+            Login
           </button>
         </div>
 
@@ -190,11 +198,74 @@
                       placeholder="Email Address"
                       name="emailAddress"
                     />
-                    <div id="emailHelp" class="form-text">
-                      We'll contact you soon. Check your Email
-                    </div>
                   </div>
-                  <button onclick="sendInfo()" class="btn btn-primary">
+                  <button onclick="sendInfo('login')" class="btn btn-primary">
+                    Done
+                  </button>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- MODAL BODY END-->
+        <!-- MODAL BODY START-->
+        <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <div id="userInfoForm" class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label"
+                      >Enter Your Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      aria-describedby="passwordHelp"
+                      placeholder="Password"
+                      name="password"
+                    />
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Enter Your Email address</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Email Address"
+                      name="emailAddress"
+                    />
+                  </div>
+                  <button
+                    onclick="sendInfo('register')"
+                    class="btn btn-primary"
+                  >
                     Done
                   </button>
                 </div>
