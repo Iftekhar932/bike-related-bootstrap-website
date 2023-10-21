@@ -69,7 +69,7 @@ app.use(verifyJWT);
 app.get("/allEmployees", async (req, res) => {
   try {
     const employees = await User.find({});
-    await res.status(200).send(employees);
+    res.status(200).send(employees);
   } catch (error) {
     console.log("✨ 🌟  app.get  error line: 😀", error);
   }

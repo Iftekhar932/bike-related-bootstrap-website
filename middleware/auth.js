@@ -21,7 +21,6 @@ const authenticateUser = async (req, res) => {
       process.env.ACCESS_TOKEN_KEY,
       { expiresIn: "2m" }
     );
-
     const refreshToken = JWT.sign(
       { email: email },
       process.env.REFRESH_TOKEN_KEY,

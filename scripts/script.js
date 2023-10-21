@@ -10,7 +10,8 @@ const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDi
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
-let token;
+let token = localStorage.getItem("accessTokenHolder");
+console.log("✨ 🌟  token:", token);
 
 /* submitting userInfo for account creation */
 async function sendInfo(flag) {
