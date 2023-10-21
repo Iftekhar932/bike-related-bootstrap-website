@@ -69,8 +69,7 @@ app.use(verifyJWT);
 app.get("/allEmployees", async (req, res) => {
   try {
     const employees = await User.find({});
-    console.log("✨ 🌟  app.get  employees: ", employees);
-    res.status(200).send(employees);
+    await res.status(200).send(employees);
   } catch (error) {
     console.log("✨ 🌟  app.get  error line: 😀", error);
   }
@@ -80,8 +79,7 @@ app.get("/allEmployees", async (req, res) => {
 app.get("/allBikes", async (req, res) => {
   try {
     const bikes = await Bike.find({});
-    console.log("✨ 🌟  app.get  bikes:", bikes);
-    res.status(200).send(bikes);
+    await res.status(200).send(bikes);
   } catch (error) {
     console.log("✨ 🌟  app.get  error:", error);
     res.sendStatus(401);

@@ -3,6 +3,7 @@ const User = require("../model/User");
 
 // at "/login" route
 const refreshTokenAuth = async (req, res, next) => {
+  console.log("refreshTokenAuth Crossed");
   const cookies = req.cookies;
   if (!cookies?.tokenHolder) return res.sendStatus(401); // unauthorized
   const refreshToken = cookies.tokenHolder;

@@ -46,14 +46,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="https://iftekhar932.github.io/bike-related-bootstrap-website/bikeDisplay.html"
-                  >Bikes</a
-                >
+                <a class="nav-link" href="/bikeDisplay.html">Bikes</a>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -112,7 +105,15 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
-            Purchase
+            Signup
+          </button>
+          <button
+            type="button"
+            class="btn custom-color-btn text-white px-5"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal2"
+          >
+            Login
           </button>
         </div>
 
@@ -194,7 +195,104 @@
                       We'll contact you soon. Check your Email
                     </div>
                   </div>
-                  <button onclick="sendInfo()" class="btn btn-primary">
+                  <button
+                    onclick="sendInfo('register')"
+                    class="btn btn-primary"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- MODAL BODY END-->
+
+        <!-- MODAL BODY START-->
+        <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Purchase Form
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <div id="userInfoForm" class="mb-3">
+                    <label for="exampleInputFirstName1" class="form-label"
+                      >Enter Your First Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputFirstName1"
+                      aria-describedby="firstNameHelp"
+                      placeholder="First Name"
+                      name="firstName"
+                    />
+                    <label for="exampleInputLastName1" class="form-label"
+                      >Enter Your Last Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputLastName1"
+                      aria-describedby="lastNameHelp"
+                      placeholder="Last Name"
+                      name="lastName"
+                    />
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Enter Your Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      aria-describedby="passwordHelp"
+                      placeholder="Password"
+                      name="password"
+                    />
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Enter Your Email address</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Email Address"
+                      name="emailAddress"
+                    />
+                    <div id="emailHelp" class="form-text">
+                      We'll contact you soon. Check your Email
+                    </div>
+                  </div>
+                  <button
+                    onclick="sendInfo('register')"
+                    class="btn btn-primary"
+                  >
                     Done
                   </button>
                 </div>

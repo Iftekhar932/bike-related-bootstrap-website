@@ -14,6 +14,8 @@ const authenticateUser = async (req, res) => {
     const foundUser = await User.findOne({ email: email }).exec();
     const match = bcrypt.compare(password, foundUser.password);
 
+    if (!match) return res.sendStatus(401);
+
     const accessToken = JWT.sign(
       { email: email },
       process.env.ACCESS_TOKEN_KEY,
@@ -30,13 +32,13 @@ const authenticateUser = async (req, res) => {
     await foundUser.save();
 
     res.cookie("tokenHolder", refreshToken, {
-      /*  httpOnly: true,
+      httpOnly: true,
       secure: true,
       sameSite: "none",
-      maxAge: 24 * 60 * 60 * 1000, */
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({ accessToken, from: "auth.js" });
+    res.status(200).json({ accessToken });
   } catch (error) {
     console.log("✨ 🌟  authenticateUser  error:", error);
     return res.status(401).send({ msg: "Invalid token" }); // 401 unauthorized

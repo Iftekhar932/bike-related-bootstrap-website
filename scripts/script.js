@@ -1,37 +1,56 @@
+// "index.html" elements
 const bikesContainerBoxID = document.getElementById("bikesContainerBox");
 const firstNameBox = document.getElementById("exampleInputFirstName1");
 const lastNameBox = document.getElementById("exampleInputLastName1");
 const passwordBox = document.getElementById("exampleInputPassword1");
 const emailBox = document.getElementById("exampleInputEmail1");
 const form = document.getElementById("userInfoForm");
+
 const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDisplay.html"
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
-/* 
-// mongoose schema
-const Bike = require("../model/Bike.js");
-console.log("✨ 🌟  Bike:", Bike); */
+let token;
 
-/* submitting userInfo for account */
-async function sendInfo() {
-  await fetch("http://localhost:4001/register", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      firstName: firstNameBox.value,
-      lastName: lastNameBox.value,
-      email: emailBox.value.toLowerCase(),
-      password: passwordBox.value,
-    }),
-  }).then((res) => res.json());
+/* submitting userInfo for account creation */
+async function sendInfo(flag) {
+  try {
+    if ((flag = "register")) {
+      await fetch("http://localhost:4001/register", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: firstNameBox.value,
+          lastName: lastNameBox.value,
+          email: emailBox.value.toLowerCase(),
+          password: passwordBox.value,
+        }),
+      }).then((res) => res.json());
+    } else if (flag === "login") {
+      await fetch("http://localhost:4001/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          firstName: firstNameBox.value,
+          lastName: lastNameBox.value,
+          email: emailBox.value.toLowerCase(),
+          password: passwordBox.value,
+        }),
+      }).then((res) => res.json());
+    }
+  } catch (error) {
+    console.log("✨ 🌟  sendInfo  script.js line 47 error:", error);
+  }
 }
 
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
-  await fetch("../data/bikeData.json")
+  await fetch("http://localhost:4001/allBikes") // 🍎🍎this line is added but not tested yet
     .then((res) => res.json())
     .then((data) => {
       const searchedFor = data.motorbikes.filter((bike) => {
