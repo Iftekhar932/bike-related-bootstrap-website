@@ -1,22 +1,25 @@
 // "index.html" elements
 const bikesContainerBoxID = document.getElementById("bikesContainerBox");
-const firstNameBox = document.getElementById("exampleInputFirstName1");
-const lastNameBox = document.getElementById("exampleInputLastName1");
-const passwordBox = document.getElementById("exampleInputPassword1");
-const emailBox = document.getElementById("exampleInputEmail1");
 const form = document.getElementById("userInfoForm");
+// signup info input element
+const firstNameBox = document.getElementById("signupInputFirstName1");
+const lastNameBox = document.getElementById("signupInputLastName1");
+const passwordBox = document.getElementById("signupInputPassword1");
+const emailBox = document.getElementById("signupInputEmail1");
+
+// login info input element
+const loginPasswordBox = document.getElementById("loginInputPassword1");
+const loginEmailBox = document.getElementById("loginInputEmail1");
 
 const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDisplay.html"
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
-let token = localStorage.getItem("accessTokenHolder");
-console.log("✨ 🌟  token:", token);
-
 /* submitting userInfo for account creation */
 async function sendInfo(flag) {
+  let token;
   try {
-    if ((flag = "register")) {
+    if (flag === "register") {
       await fetch("http://localhost:4001/register", {
         method: "POST",
         headers: {
@@ -28,7 +31,9 @@ async function sendInfo(flag) {
           email: emailBox.value.toLowerCase(),
           password: passwordBox.value,
         }),
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data, "login.script"));
     } else if (flag === "login") {
       await fetch("http://localhost:4001/login", {
         method: "POST",
@@ -37,12 +42,15 @@ async function sendInfo(flag) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          firstName: firstNameBox.value,
-          lastName: lastNameBox.value,
-          email: emailBox.value.toLowerCase(),
-          password: passwordBox.value,
+          email: loginEmailBox.value.toLowerCase(),
+          password: loginPasswordBox.value,
         }),
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          token = data.accessToken;
+          console.log(token);
+        });
     }
   } catch (error) {
     console.log("✨ 🌟  sendInfo  script.js line 47 error:", error);

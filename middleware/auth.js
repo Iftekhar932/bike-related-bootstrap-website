@@ -37,7 +37,7 @@ const authenticateUser = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({ accessToken });
+    res.json({ accessToken });
   } catch (error) {
     console.log("✨ 🌟  authenticateUser  error:", error);
     return res.status(401).send({ msg: "Invalid token" }); // 401 unauthorized

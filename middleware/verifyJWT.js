@@ -3,9 +3,9 @@ const User = require("../model/User");
 
 const verifyJWT = (req, res, next) => {
   const authHeader = req.headers.Authorization || req.headers.authorization;
-  console.log("VERIFY", authHeader); // logging 😢 undefined
-  if (!authHeader) return res.sendStatus(401);
+  console.log("verifyJWT.js", authHeader);
 
+  if (!authHeader) return res.sendStatus(401);
   const token = authHeader.split(" ")[1];
 
   JWT.verify(token, process.env.ACCESS_TOKEN_KEY, async (err, decoded) => {
