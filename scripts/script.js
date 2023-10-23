@@ -49,11 +49,10 @@ async function sendInfo(flag) {
         .then((res) => res.json())
         .then((data) => {
           token = data.accessToken;
-          console.log(token);
         });
     }
   } catch (error) {
-    console.log("✨ 🌟  sendInfo  script.js line 47 error:", error);
+    console.log("✨ 🌟  sendInfo function  script.js line 55 error:", error);
   }
 }
 
