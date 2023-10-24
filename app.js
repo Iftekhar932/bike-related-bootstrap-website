@@ -56,6 +56,7 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 app.post("/login", authenticateUser);
 
 app.get("/logout", async (req, res) => {

@@ -16,8 +16,8 @@ const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeD
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
 /* submitting userInfo for account creation */
+let token;
 async function sendInfo(flag) {
-  let token;
   try {
     if (flag === "register") {
       await fetch("http://localhost:4001/register", {
@@ -39,7 +39,6 @@ async function sendInfo(flag) {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           email: loginEmailBox.value.toLowerCase(),
@@ -49,6 +48,8 @@ async function sendInfo(flag) {
         .then((res) => res.json())
         .then((data) => {
           token = data.accessToken;
+          localStorage.setItem("token", token);
+          console.log("logged in");
         });
     }
   } catch (error) {
@@ -58,10 +59,13 @@ async function sendInfo(flag) {
 
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
-  await fetch("http://localhost:4001/allBikes") // 🍎🍎this line is added but not tested yet
+  await fetch("http://localhost:4001/allBikes", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  }) // 🍎🍎this line is added but not tested yet
     .then((res) => res.json())
     .then((data) => {
-      const searchedFor = data.motorbikes.filter((bike) => {
+      console.log(data);
+      const searchedFor = data.filter((bike) => {
         return (
           bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
           bike.type.toLowerCase() == searchBox.value.toLowerCase() ||
@@ -77,7 +81,7 @@ async function bikeSearcher() {
 
 /*  if user pressed "Enter" button for submission */
 let pressed;
-searchBox.addEventListener("keydown", (e) => {
+searchBox?.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     let pressed = "submit";
     return pressed;
@@ -85,7 +89,7 @@ searchBox.addEventListener("keydown", (e) => {
 });
 
 /* function on form submission  */
-bikeSearchForm.addEventListener("submit" || pressed, (e) => {
+bikeSearchForm?.addEventListener("submit" || pressed, (e) => {
   e.preventDefault();
   bikeSearcher();
 });

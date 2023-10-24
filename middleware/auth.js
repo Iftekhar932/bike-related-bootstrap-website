@@ -21,6 +21,7 @@ const authenticateUser = async (req, res) => {
       process.env.ACCESS_TOKEN_KEY,
       { expiresIn: "2m" }
     );
+
     const refreshToken = JWT.sign(
       { email: email },
       process.env.REFRESH_TOKEN_KEY,
@@ -36,6 +37,7 @@ const authenticateUser = async (req, res) => {
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
     });
+
     res.json({ accessToken });
   } catch (error) {
     console.log("✨ 🌟  authenticateUser  error:", error);
