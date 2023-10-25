@@ -19,7 +19,7 @@ const authenticateUser = async (req, res) => {
     const accessToken = JWT.sign(
       { email: email },
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: "2m" }
+      { expiresIn: "1m" }
     );
 
     const refreshToken = JWT.sign(
@@ -31,6 +31,13 @@ const authenticateUser = async (req, res) => {
     foundUser.refreshToken = refreshToken;
     await foundUser.save();
 
+    res.cookie("a_tokenHolder", accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
     res.cookie("tokenHolder", refreshToken, {
       httpOnly: true,
       secure: true,
@@ -38,7 +45,7 @@ const authenticateUser = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({ accessToken });
+    res.json({ accessToken }); // to front-end
   } catch (error) {
     console.log("✨ 🌟  authenticateUser  error:", error);
     return res.status(401).send({ msg: "Invalid token" }); // 401 unauthorized
@@ -46,3 +53,9 @@ const authenticateUser = async (req, res) => {
 };
 
 module.exports = authenticateUser;
+
+/* 
+1....if i comment out those options of cookies it works otherwise it won't
+2....if i use localStorage it's easy to send bearer token...but how do i use memory to do that?
+3....
+*/

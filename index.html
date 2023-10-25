@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Bike Shop</title>
     <!-- SCRIPT.JS -->
     <!-- FONT AWESOME CDN -->
     <link
@@ -31,7 +31,11 @@
         class="navbar navbar-expand-lg fixed-top navbar-secondary fw-bold w-75 mx-auto"
       >
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a
+            class="navbar-brand text-decoration-underline text-uppercase text-secondary"
+            href="#"
+            >Dream Bikes</a
+          >
           <button
             class="navbar-toggler"
             type="button"
@@ -41,14 +45,16 @@
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon border">
+              <i class="fas fa-bars"></i>
+            </span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link" href="/bikeDisplay.html">Bikes</a>
               </li>
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -67,8 +73,8 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                   </li>
                 </ul>
-              </li>
-              <li class="nav-item">
+              </li> -->
+              <!-- <li class="nav-item">
                 <a
                   class="nav-link disabled"
                   href="#"
@@ -76,7 +82,7 @@
                   aria-disabled="true"
                   >Disabled</a
                 >
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>
@@ -203,8 +209,9 @@
                   <button
                     onclick="sendInfo('register')"
                     class="btn btn-primary"
+                    data-bs-dismiss="modal"
                   >
-                    Submit
+                    Signup
                   </button>
                 </div>
               </div>
@@ -271,7 +278,11 @@
                       name="password"
                     />
                   </div>
-                  <button onclick="sendInfo('login')" class="btn btn-primary">
+                  <button
+                    onclick="sendInfo('login')"
+                    data-bs-dismiss="modal"
+                    class="btn btn-primary"
+                  >
                     Login
                   </button>
                 </div>
@@ -612,6 +623,35 @@
       <!-- MAINTENANCE TIPS SECTION END -->
     </main>
     <!-- MAIN END -->
+
+    <!-- FOOTER START -->
+    <div class="container">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
+        <div class="col-md-4 d-flex align-items-center">
+          <a
+            href="/"
+            class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
+          >
+            <svg class="bi" width="30" height="24">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">© 2023 Company, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </li>
+          <li class="ms-3">
+            <i class="fab fa-github fa-2x"></i>
+          </li>
+        </ul>
+      </footer>
+    </div>
+    <!-- FOOTER END -->
 
     <!-- BOOTSTRAP SCRIPT -->
     <script

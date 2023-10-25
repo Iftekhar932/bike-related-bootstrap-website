@@ -16,7 +16,7 @@ const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeD
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
 /* submitting userInfo for account creation */
-let token;
+let tokenValue;
 async function sendInfo(flag) {
   try {
     if (flag === "register") {
@@ -47,24 +47,24 @@ async function sendInfo(flag) {
       })
         .then((res) => res.json())
         .then((data) => {
-          token = data.accessToken;
-          localStorage.setItem("token", token);
-          console.log("logged in");
+          tokenValue = data.accessToken;
+          // localStorage.setItem("token", data.accessToken);
         });
     }
   } catch (error) {
-    console.log("✨ 🌟  sendInfo function  script.js line 55 error:", error);
+    console.log("✨ 🌟  sendInfo function  script.js line 57 error:", error);
   }
 }
 
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
   await fetch("http://localhost:4001/allBikes", {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  }) // 🍎🍎this line is added but not tested yet
+    headers: { Authorization: `Bearer ${tokenValue}` },
+    withCredentials: true,
+    // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       const searchedFor = data.filter((bike) => {
         return (
           bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
@@ -74,7 +74,6 @@ async function bikeSearcher() {
           bike.engine.toLowerCase().includes(searchBox.value.toLowerCase())
         );
       });
-      console.log("✨ 🌟  .then  searchedFor:", searchedFor);
       if (searchedFor) return displayIndividualBike(searchedFor);
     });
 }
