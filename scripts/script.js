@@ -16,7 +16,6 @@ const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeD
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
 /* submitting userInfo for account creation */
-let tokenValue;
 async function sendInfo(flag) {
   try {
     if (flag === "register") {
@@ -40,7 +39,7 @@ async function sendInfo(flag) {
         headers: {
           "content-type": "application/json",
         },
-        credentials: "include",
+        // credentials: "include",
         body: JSON.stringify({
           email: loginEmailBox.value.toLowerCase(),
           password: loginPasswordBox.value,
@@ -48,8 +47,7 @@ async function sendInfo(flag) {
       })
         .then((res) => res.json())
         .then((data) => {
-          tokenValue = data.accessToken;
-          console.log("✨ 🌟  .then  tokenValue:", tokenValue);
+          console.log("✨ 🌟  .then  tokenValue:", data);
         });
     }
   } catch (error) {
@@ -59,9 +57,7 @@ async function sendInfo(flag) {
 
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
-  await fetch("http://localhost:4001/allBikes", {
-    // headers: { Authorization: `Bearer ${tokenValue}` }, // put cookie token here ⭕⭕ to be done
-  })
+  await fetch("http://localhost:4001/allBikes")
     .then((res) => res.json())
     .then((data) => {
       console.log("✨ 🌟  .then  data:", data);

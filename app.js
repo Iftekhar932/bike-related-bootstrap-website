@@ -23,13 +23,7 @@ require("./config/database").connect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "http://yourfrontenddomain.com", // Replace with your frontend's domain.
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // This is necessary when dealing with cookies and authentication.
-  })
-);
+app.use(cors());
 
 app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
 const authenticateUser = require("./middleware/auth");
@@ -76,6 +70,7 @@ app.get("/logout", async (req, res) => {
   res.sendStatus(200);
 });
 
+// token related middleware
 app.post("/refresh", refreshTokenAuth);
 app.use(verifyJWT);
 
@@ -92,7 +87,7 @@ app.get("/allEmployees", async (req, res) => {
 app.get("/allBikes", async (req, res) => {
   try {
     const bikes = await Bike.find({});
-    await res.status(200).send(bikes);
+    res.status(200).send(bikes);
   } catch (error) {
     console.log("✨ 🌟  app.get  error:", error);
     res.sendStatus(401);
