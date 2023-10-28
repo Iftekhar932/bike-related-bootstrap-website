@@ -19,7 +19,7 @@ const authenticateUser = async (req, res) => {
     const accessToken = JWT.sign(
       { email: email },
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: "1m" }
+      { expiresIn: "10m" }
     );
 
     const refreshToken = JWT.sign(
@@ -53,9 +53,3 @@ const authenticateUser = async (req, res) => {
 };
 
 module.exports = authenticateUser;
-
-/* 
-1....if i comment out those options of cookies it works otherwise it won't
-2....if i use localStorage it's easy to send bearer token...but how do i use memory to do that?
-3....
-*/

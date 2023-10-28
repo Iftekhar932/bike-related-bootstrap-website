@@ -40,6 +40,7 @@ async function sendInfo(flag) {
         headers: {
           "content-type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           email: loginEmailBox.value.toLowerCase(),
           password: loginPasswordBox.value,
@@ -48,7 +49,7 @@ async function sendInfo(flag) {
         .then((res) => res.json())
         .then((data) => {
           tokenValue = data.accessToken;
-          // localStorage.setItem("token", data.accessToken);
+          console.log("✨ 🌟  .then  tokenValue:", tokenValue);
         });
     }
   } catch (error) {
@@ -59,12 +60,11 @@ async function sendInfo(flag) {
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
   await fetch("http://localhost:4001/allBikes", {
-    headers: { Authorization: `Bearer ${tokenValue}` },
-    withCredentials: true,
-    // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    // headers: { Authorization: `Bearer ${tokenValue}` }, // put cookie token here ⭕⭕ to be done
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log("✨ 🌟  .then  data:", data);
       const searchedFor = data.filter((bike) => {
         return (
           bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
