@@ -1,11 +1,14 @@
-require("dotenv").config();
-require("./config/database").connect();
 const express = require("express");
-const JWT = require("jsonwebtoken");
 const app = express();
+
+// imported npm middleware
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
+
+require("dotenv").config();
+
+// coded middleware
 const verifyJWT = require("./middleware/verifyJWT");
 const refreshTokenAuth = require("./middleware/refreshTokenAuth");
 
@@ -13,7 +16,10 @@ const refreshTokenAuth = require("./middleware/refreshTokenAuth");
 const User = require("./model/User");
 const Bike = require("./model/Bike");
 
-// middleware
+// mongoose function invoked to connect database
+require("./config/database").connect();
+
+// middleware used
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
