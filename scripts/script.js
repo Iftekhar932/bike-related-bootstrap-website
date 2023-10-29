@@ -45,9 +45,10 @@ async function sendInfo(flag) {
           password: loginPasswordBox.value,
         }),
       })
-        .then((res) => res.json())
+        .then(async (res) => await res.json())
         .then((data) => {
-          console.log("✨ 🌟  .then  tokenValue:", data);
+          cookieRecordEraser();
+          document.cookie = `accessToken=${data.accessToken}`;
         });
     }
   } catch (error) {
@@ -55,12 +56,29 @@ async function sendInfo(flag) {
   }
 }
 
+const accessTokenModified = document.cookie.replace("accessToken=", "");
+
+// function to erase previously set cookie
+function cookieRecordEraser() {
+  var cookies = document.cookie.split(";");
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"; // setting past time so that the cookie gets cleared
+  }
+}
+
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
-  await fetch("http://localhost:4001/allBikes")
+  await fetch("http://localhost:4001/allBikes", {
+    headers: {
+      Authorization: `Bearer ${accessTokenModified}`,
+    },
+  })
     .then((res) => res.json())
     .then((data) => {
-      console.log("✨ 🌟  .then  data:", data);
+      console.log("✨ 🌟  bikeSearcher:", data);
       const searchedFor = data.filter((bike) => {
         return (
           bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
