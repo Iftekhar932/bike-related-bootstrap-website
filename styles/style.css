@@ -36,10 +36,18 @@ section#happy-clients h1 span {
   color: #e76f51;
 }
 img.round-radius {
-  /* clip-path: circle(80% at 50% 50%); */
   border-radius: 50%;
   height: 135px;
 }
 span.custom-span-color {
   color: #e76f51;
+}
+
+/* --------------------------------------  */
+/* HAPPY CLIENTS SAYS SECTION CSS  */
+/* --------------------------------------  */
+footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
 }

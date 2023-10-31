@@ -129,7 +129,7 @@ function displayIndividualBike(bikeInfo) {
                 <p class="card-text">
                ${description}
                 </p>
-                <span href="#" class="btn btn-primary">$ ${price}</span>
+                <span href="#" class="text-decoration-underline">$ ${price}</span>
                 </div>`;
 
     const boxToAppend = document.createElement("div");
