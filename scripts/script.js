@@ -1,24 +1,34 @@
-// form input elements in 'index.html'
-const firstNameBox = document.getElementById("exampleInputFirstName1");
-const lastNameBox = document.getElementById("exampleInputLastName1");
-const passwordBox = document.getElementById("exampleInputPassword1");
-const emailBox = document.getElementById("exampleInputEmail1");
 
 // input elements in 'bikeDisplay.html'
 const bikesContainerBoxID = document.getElementById("bikesContainerBox");
+
+// "index.html" elements
+const form = document.getElementById("userInfoForm");
+
+// signup info input element
+const firstNameBox = document.getElementById("signupInputFirstName1");
+const lastNameBox = document.getElementById("signupInputLastName1");
+const passwordBox = document.getElementById("signupInputPassword1");
+const emailBox = document.getElementById("signupInputEmail1");
+
+// login info input element
+const loginPasswordBox = document.getElementById("loginInputPassword1");
+const loginEmailBox = document.getElementById("loginInputEmail1");
+
 const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDisplay.html"
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
-/* 
-// mongoose schema
-const Bike = require("../model/Bike.js");
-console.log("✨ 🌟  Bike:", Bike); */
 
 /* submitting userInfo for account */
 async function sendInfo(flag) {
   try {
     if (flag == "register") {
+/* submitting userInfo for account creation */
+async function sendInfo(flag) {
+  let token;
+  try {
+    if (flag === "register") {
       await fetch("http://localhost:4001/register", {
         method: "POST",
         headers: {
@@ -30,7 +40,7 @@ async function sendInfo(flag) {
           email: emailBox.value.toLowerCase(),
           password: passwordBox.value,
         }),
-      }).then((res) => res.json());
+      }).then((res) => res.json()).then(d=>console.log(d));
     } else if (flag === "login") {
       await fetch("http://localhost:4001/login", {
         method: "POST",
@@ -44,13 +54,13 @@ async function sendInfo(flag) {
       }).then((res) => res.json());
     }
   } catch (error) {
-    console.log("🚀 ~ file: script.js:45 ~ sendInfo ~ error:", error);
+    console.log("✨ 🌟  sendInfo  script.js line 47 error:", error);
   }
 }
 
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
-  await fetch("../data/bikeData.json")
+  await fetch("http://localhost:4001/allBikes") // 🍎🍎this line is added but not tested yet
     .then((res) => res.json())
     .then((data) => {
       const searchedFor = data.motorbikes.filter((bike) => {
