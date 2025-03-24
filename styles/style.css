@@ -9,7 +9,12 @@ body {
 /* CSS FOR HEADER */
 /* ------------------------ */
 .custom-bg-color {
-  background-color: #264653;
+  background: rgb(70, 127, 157);
+  background: linear-gradient(
+    353deg,
+    rgba(70, 127, 157, 1) 7%,
+    rgba(38, 70, 83, 1) 71%
+  );
 }
 
 button.custom-color-btn {
@@ -31,10 +36,18 @@ section#happy-clients h1 span {
   color: #e76f51;
 }
 img.round-radius {
-  /* clip-path: circle(80% at 50% 50%); */
   border-radius: 50%;
   height: 135px;
 }
 span.custom-span-color {
   color: #e76f51;
+}
+
+/* --------------------------------------  */
+/* HAPPY CLIENTS SAYS SECTION CSS  */
+/* --------------------------------------  */
+footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
 }

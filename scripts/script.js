@@ -1,4 +1,3 @@
-
 // input elements in 'bikeDisplay.html'
 const bikesContainerBoxID = document.getElementById("bikesContainerBox");
 
@@ -19,14 +18,8 @@ const searchBox = document.querySelector('[aria-label="Search"]'); // in "bikeDi
 const bikeSearchForm = document.getElementById("bikeSearchFormID"); // in "bikeDisplay.html"
 const bikeSearchButton = document.getElementById("bikeSearchButtonID"); // in "bikeDisplay.html"
 
-
 /* submitting userInfo for account */
 async function sendInfo(flag) {
-  try {
-    if (flag == "register") {
-/* submitting userInfo for account creation */
-async function sendInfo(flag) {
-  let token;
   try {
     if (flag === "register") {
       await fetch("http://localhost:4001/register", {
@@ -40,7 +33,9 @@ async function sendInfo(flag) {
           email: emailBox.value.toLowerCase(),
           password: passwordBox.value,
         }),
-      }).then((res) => res.json()).then(d=>console.log(d));
+      })
+        .then((res) => res.json())
+        .then((d) => console.log(d));
     } else if (flag === "login") {
       await fetch("http://localhost:4001/login", {
         method: "POST",
@@ -51,50 +46,84 @@ async function sendInfo(flag) {
           email: emailBox.value.toLowerCase(),
           password: passwordBox.value,
         }),
-      }).then((res) => res.json());
+      })
+        .then(async (res) => await res.json())
+        .then((data) => {
+          cookieRecordEraser();
+          document.cookie = `accessToken=${data.accessToken}`;
+        });
     }
   } catch (error) {
-    console.log("✨ 🌟  sendInfo  script.js line 47 error:", error);
+    console.error("✨ 🌟  sendInfo function  script.js line 57 error:", error);
+  }
+}
+
+const accessTokenModified = document.cookie.replace("accessToken=", "");
+
+// function to erase previously set cookie
+function cookieRecordEraser() {
+  var cookies = document.cookie.split(";");
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"; // setting past time so that the cookie gets cleared
   }
 }
 
 /* searching for bikes with provided input value */
 async function bikeSearcher() {
-  await fetch("http://localhost:4001/allBikes") // 🍎🍎this line is added but not tested yet
-    .then((res) => res.json())
-    .then((data) => {
-      const searchedFor = data.motorbikes.filter((bike) => {
-        return (
-          bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
-          bike.type.toLowerCase() == searchBox.value.toLowerCase() ||
-          bike.model.toLowerCase().includes(searchBox.value.toLowerCase()) ||
-          bike.color.toLowerCase().includes(searchBox.value.toLowerCase()) ||
-          bike.engine.toLowerCase().includes(searchBox.value.toLowerCase())
-        );
+  try {
+    await fetch("http://localhost:4001/allBikes", {
+      headers: {
+        Authorization: `Bearer ${accessTokenModified}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("✨ 🌟  bikeSearcher:", data);
+        const searchedFor = data.filter((bike) => {
+          return (
+            bike.brand.toLowerCase().includes(searchBox.value.toLowerCase()) ||
+            bike.type.toLowerCase() == searchBox.value.toLowerCase() ||
+            bike.model.toLowerCase().includes(searchBox.value.toLowerCase()) ||
+            bike.color.toLowerCase().includes(searchBox.value.toLowerCase()) ||
+            bike.engine.toLowerCase().includes(searchBox.value.toLowerCase())
+          );
+        });
+        if (searchedFor) return displayIndividualBike(searchedFor);
       });
-      console.log("✨ 🌟  .then  searchedFor:", searchedFor);
-      if (searchedFor) return displayIndividualBike(searchedFor);
-    });
+  } catch (error) {
+    console.error("Error in bikeSearcher:", error);
+  }
 }
 
-/*  if user pressed "Enter" button for submission */
+/* if user pressed "Enter" button for submission */
 let pressed;
-searchBox.addEventListener("keydown", (e) => {
+searchBox?.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    let pressed = "submit";
+    pressed = "submit";
+    console.log("Enter pressed");
     return pressed;
   }
 });
 
 /* function on form submission  */
-bikeSearchForm.addEventListener("submit" || pressed, (e) => {
+bikeSearchForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   bikeSearcher();
+  console.log("Form submitted");
 });
 
 // getting and displaying bike information
 function displayIndividualBike(bikeInfo) {
   let bikeInfoToDisplay = bikeInfo;
+
+  bikesContainerBoxID.innerHTML = ""; // Clear previous results
+  console.log(
+    "displayIndividualBike called, length:",
+    bikeInfoToDisplay.length
+  );
 
   bikeInfoToDisplay.map((singleBikeInfo) => {
     const { id, brand, model, type, engine, price, color, description, image } =
@@ -114,7 +143,7 @@ function displayIndividualBike(bikeInfo) {
                 <p class="card-text">
                ${description}
                 </p>
-                <span href="#" class="btn btn-primary">$ ${price}</span>
+                <span href="#" class="text-decoration-underline">$ ${price}</span>
                 </div>`;
 
     const boxToAppend = document.createElement("div");
@@ -122,7 +151,6 @@ function displayIndividualBike(bikeInfo) {
       "class",
       "card p-2 shadow-sm col-sm-4 col-md-4 col-lg-3"
     );
-    // boxToAppend.setAttribute("style", "min-width:100%");
     boxToAppend.innerHTML = singleBikeBox;
     bikesContainerBoxID.append(boxToAppend);
   });

@@ -1,11 +1,14 @@
-require("dotenv").config();
-require("./config/database").connect();
 const express = require("express");
-const JWT = require("jsonwebtoken");
 const app = express();
+
+// imported npm middleware
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
+
+require("dotenv").config();
+
+// coded middleware
 const verifyJWT = require("./middleware/verifyJWT");
 const refreshTokenAuth = require("./middleware/refreshTokenAuth");
 
@@ -13,13 +16,16 @@ const refreshTokenAuth = require("./middleware/refreshTokenAuth");
 const User = require("./model/User");
 const Bike = require("./model/Bike");
 
-// middleware
+// mongoose function invoked to connect database
+require("./config/database").connect();
+
+// middleware used
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
+
 app.use(express.json()); // The express. json() function is a middleware function used in Express. js applications to parse incoming JSON data from HTTP requests
-const auth = require("./middleware/auth");
 const authenticateUser = require("./middleware/auth");
 
 app.post("/register", async (req, res) => {
@@ -56,6 +62,7 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 app.post("/login", authenticateUser);
 
 app.get("/logout", async (req, res) => {
@@ -63,6 +70,7 @@ app.get("/logout", async (req, res) => {
   res.sendStatus(200);
 });
 
+// token related middleware
 app.post("/refresh", refreshTokenAuth);
 app.use(verifyJWT);
 
@@ -79,7 +87,7 @@ app.get("/allEmployees", async (req, res) => {
 app.get("/allBikes", async (req, res) => {
   try {
     const bikes = await Bike.find({});
-    await res.status(200).send(bikes);
+    res.status(200).send(bikes);
   } catch (error) {
     console.log("✨ 🌟  app.get  error:", error);
     res.sendStatus(401);
